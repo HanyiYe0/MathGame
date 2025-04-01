@@ -14,6 +14,7 @@
 		8E5976322D9C5E560098AD90 /* MathGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5976312D9C5E560098AD90 /* MathGameTests.swift */; };
 		8E59763C2D9C5E560098AD90 /* MathGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59763B2D9C5E560098AD90 /* MathGameUITests.swift */; };
 		8E59763E2D9C5E560098AD90 /* MathGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59763D2D9C5E560098AD90 /* MathGameUITestsLaunchTests.swift */; };
+		8E59764B2D9C69AE0098AD90 /* ClickableSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59764A2D9C69AE0098AD90 /* ClickableSquare.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		8E5976372D9C5E560098AD90 /* MathGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E59763B2D9C5E560098AD90 /* MathGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathGameUITests.swift; sourceTree = "<group>"; };
 		8E59763D2D9C5E560098AD90 /* MathGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8E59764A2D9C69AE0098AD90 /* ClickableSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickableSquare.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		8E59761F2D9C5E530098AD90 /* MathGame */ = {
 			isa = PBXGroup;
 			children = (
+				8E59764A2D9C69AE0098AD90 /* ClickableSquare.swift */,
 				8E5976202D9C5E530098AD90 /* MathGameApp.swift */,
 				8E5976222D9C5E530098AD90 /* ContentView.swift */,
 				8E5976242D9C5E560098AD90 /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 			files = (
 				8E5976232D9C5E530098AD90 /* ContentView.swift in Sources */,
 				8E5976212D9C5E530098AD90 /* MathGameApp.swift in Sources */,
+				8E59764B2D9C69AE0098AD90 /* ClickableSquare.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
