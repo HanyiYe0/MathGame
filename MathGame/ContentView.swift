@@ -7,15 +7,25 @@
 
 import SwiftUI
 
-var nums: [[Int]] = [[1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8]]
+var nums: [[Int]] = [
+    [1, 2, 3, 4, 5, 6],
+    [1, 2, 3, 4, 5, 6],
+    [1, 2, 3, 4, 5, 6],
+    [1, 2, 3, 4, 5, 6],
+    [1, 2, 3, 4, 5, 6],
+    [1, 2, 3, 4, 5, 6]
+]
 
 struct ContentView: View {
     var body: some View {
         VStack {
+            Text("Test Game").font(.system(size: 50))
             
-            ForEach(1...6, id: \.description) {_ in
+            ForEach(0..<6, id: \.self) {row in
                 HStack {
-                    ForEach(1...6, id: \.description) { _ in ClickableSquareView()}
+                    ForEach(0..<6, id: \.self) { column in
+                        ClickableSquareView(num: .constant(nums[row][column]))
+                    }
                 }
             }
         }
