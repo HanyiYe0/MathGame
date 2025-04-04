@@ -20,8 +20,15 @@ let blankBoard: [[Int]] = [
 ]
 
 var originalBoard: [[Int]] = generateRandomBoard()
+var gameOverState: Bool = false
 
-func generateRandomBoard() -> [[Int]] {
+private func gameOverCheck() {
+    if currentBoard == blankBoard {
+        gameOverState = true
+    }
+}
+
+private func generateRandomBoard() -> [[Int]] {
     var multiplier: Int
     var randomRow1: Int
     var randomRow2: Int
@@ -85,7 +92,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Test Game")
+            Text(gameOverState ? "You Win" : "Test Game")
                 .font(.system(size: 50))
             
             ForEach(0..<6, id: \.self) { row in
@@ -165,8 +172,13 @@ struct ContentView: View {
             selectedIndices.remove(at: 0)
             selectedIndices.remove(at: 0)
         }
+        
+        // Check for game over state
+        gameOverCheck()
     }
 }
+
+
 
 #Preview {
     ContentView()
