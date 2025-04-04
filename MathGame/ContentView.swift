@@ -1,7 +1,7 @@
 import SwiftUI
 
-// Example grid data
-var nums: [[Int]] = [
+// Original Grid Example
+let originalBoard: [[Int]] = [
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
@@ -9,6 +9,9 @@ var nums: [[Int]] = [
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6]
 ]
+
+// Current board
+var currentBoard: [[Int]] = originalBoard
 
 struct ContentView: View {
     // This array tracks the selected indices (max 2 allowed).
@@ -24,7 +27,7 @@ struct ContentView: View {
                     ForEach(0..<6, id: \.self) { column in
                         let index = (row: row, column: column)
                         ClickableSquareView(
-                            num: .constant(nums[row][column]),
+                            num: .constant(currentBoard[row][column]),
                             clicked: .constant(selectedIndices.contains(where: { $0 == index })),
                             onTap: {
                                 selectionLogic(index: index)
@@ -33,6 +36,13 @@ struct ContentView: View {
                     }
                 }
             }
+            
+            Button("Reset Board") {
+                withAnimation {
+                    currentBoard = originalBoard
+                    selectedIndices.removeAll()
+                }
+            }.disabled(currentBoard == originalBoard)
         }
         .padding()
     }
@@ -70,9 +80,9 @@ struct ContentView: View {
         if selectedIndices.count == 2 {
             let (row1, column1) = selectedIndices[0]
             let (row2, column2) = selectedIndices[1]
-            let largestFactor = getLargestFactor(num1: nums[row1][column1], num2: nums[row2][column2])
-            nums[row1][column1] = (nums[row1][column1] / largestFactor)
-            nums[row2][column2] = nums[row2][column2] / largestFactor
+            let largestFactor = getLargestFactor(num1: currentBoard[row1][column1], num2: currentBoard[row2][column2])
+            currentBoard[row1][column1] = (currentBoard[row1][column1] / largestFactor)
+            currentBoard[row2][column2] = currentBoard[row2][column2] / largestFactor
             
             // Clear all selections
             selectedIndices.remove(at: 0)
