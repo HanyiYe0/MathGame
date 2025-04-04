@@ -1,7 +1,7 @@
 import SwiftUI
 
-// Original Grid Example
-let originalBoard: [[Int]] = [
+// Original Grid
+let backupBoard: [[Int]] = [
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
@@ -9,6 +9,49 @@ let originalBoard: [[Int]] = [
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6]
 ]
+
+var originalBoard: [[Int]] = generateRandomBoard()
+
+func generateRandomBoard() -> [[Int]] {
+    var multiplier: Int
+    var randomRow1: Int
+    var randomRow2: Int
+    var randomColumnn1: Int
+    var randomColumnn2: Int
+    var baseBoard: [[Int]] = [
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1]
+    ]
+    // Generate random board
+    for _ in 0...1000 {
+        multiplier = Int(arc4random_uniform(99) + 1)
+        
+        randomRow1 = Int(arc4random_uniform(6))
+        randomRow2 = Int(arc4random_uniform(6))
+        randomColumnn1 = Int(arc4random_uniform(6))
+        randomColumnn2 = Int(arc4random_uniform(6))
+        
+        // If at both different numbers multiply by some random number
+        if (randomRow1 != randomRow2 || randomColumnn1 != randomColumnn2) {
+            let num1 = baseBoard[randomRow1][randomColumnn1]
+            let num2 = baseBoard[randomRow2][randomColumnn2]
+            
+            // If both result in three digits or less
+            if num1 * multiplier < 1000 && num2 * multiplier < 1000 {
+                baseBoard[randomRow1][randomColumnn1] = num1 * multiplier
+                baseBoard[randomRow2][randomColumnn2] = num2 * multiplier
+            }
+        }
+    }
+    return baseBoard
+}
+
+
+
 
 // Current board
 var currentBoard: [[Int]] = originalBoard
@@ -37,12 +80,23 @@ struct ContentView: View {
                 }
             }
             
-            Button("Reset Board") {
-                withAnimation {
-                    currentBoard = originalBoard
-                    selectedIndices.removeAll()
+            HStack {
+                Button("Reset Board") {
+                    withAnimation {
+                        currentBoard = originalBoard
+                        selectedIndices.removeAll()
+                    }
+                }.disabled(currentBoard == originalBoard)
+                
+                Button("New Game") {
+                    withAnimation {
+                        originalBoard = generateRandomBoard()
+                        currentBoard = originalBoard
+                        selectedIndices.removeAll()
+                    }
                 }
-            }.disabled(currentBoard == originalBoard)
+            }
+            
         }
         .padding()
     }
