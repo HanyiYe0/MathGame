@@ -22,8 +22,9 @@ struct ClickableSquareView: View {
                 .onTapGesture {
                     onTap()
                 }
+                .opacity(num == 1 ? 0 : 1)
             
-            Text(String(num))
+            Text(String(num)).opacity(num == 1 ? 0 : 1)
         }
         
     }

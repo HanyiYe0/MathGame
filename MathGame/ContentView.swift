@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Example grid data
-let nums: [[Int]] = [
+var nums: [[Int]] = [
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
     [1, 2, 3, 4, 5, 6],
@@ -27,7 +27,7 @@ struct ContentView: View {
                             num: .constant(nums[row][column]),
                             clicked: .constant(selectedIndices.contains(where: { $0 == index })),
                             onTap: {
-                                toggleSelection(index: index)
+                                selectionLogic(index: index)
                             }
                         )
                     }
@@ -35,14 +35,27 @@ struct ContentView: View {
             }
         }
         .padding()
-        
-        if selectedIndices.count == 2 {
-            
-        }
     }
     
-    /// Toggles the selection of a block. Only allows up to two selections.
-    private func toggleSelection(index: (row: Int, column: Int)) {
+    private func getLargestFactor(num1: Int, num2: Int) -> Int {
+        var largestFactor = 1
+        var num1Factors: [Int] = []
+        for i in 1...num1 {
+            if num1 % i == 0 {
+                num1Factors.append(i)
+            }
+        }
+        for factor in num1Factors {
+            if num2 % factor == 0 {
+                largestFactor = factor
+            }
+        }
+        return largestFactor
+    }
+    
+    // Does the selection logic
+    private func selectionLogic(index: (row: Int, column: Int)) {
+        // For selecting and deselecting elements in the table
         if let existingIndex = selectedIndices.firstIndex(where: { $0 == index }) {
             // Deselect the block if it's already selected.
             selectedIndices.remove(at: existingIndex)
@@ -51,6 +64,19 @@ struct ContentView: View {
             if selectedIndices.count < 2 {
                 selectedIndices.append(index)
             }
+        }
+        
+        // For doing the two selection process and minimizing
+        if selectedIndices.count == 2 {
+            let (row1, column1) = selectedIndices[0]
+            let (row2, column2) = selectedIndices[1]
+            let largestFactor = getLargestFactor(num1: nums[row1][column1], num2: nums[row2][column2])
+            nums[row1][column1] = (nums[row1][column1] / largestFactor)
+            nums[row2][column2] = nums[row2][column2] / largestFactor
+            
+            // Clear all selections
+            selectedIndices.remove(at: 0)
+            selectedIndices.remove(at: 0)
         }
     }
 }
