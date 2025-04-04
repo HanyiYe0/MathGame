@@ -10,6 +10,15 @@ let backupBoard: [[Int]] = [
     [1, 2, 3, 4, 5, 6]
 ]
 
+let blankBoard: [[Int]] = [
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1]
+]
+
 var originalBoard: [[Int]] = generateRandomBoard()
 
 func generateRandomBoard() -> [[Int]] {
@@ -26,28 +35,42 @@ func generateRandomBoard() -> [[Int]] {
         [1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1]
     ]
-    // Generate random board
-    for _ in 0...1000 {
-        multiplier = Int(arc4random_uniform(99) + 1)
-        
-        randomRow1 = Int(arc4random_uniform(6))
-        randomRow2 = Int(arc4random_uniform(6))
-        randomColumnn1 = Int(arc4random_uniform(6))
-        randomColumnn2 = Int(arc4random_uniform(6))
-        
-        // If at both different numbers multiply by some random number
-        if (randomRow1 != randomRow2 || randomColumnn1 != randomColumnn2) {
-            let num1 = baseBoard[randomRow1][randomColumnn1]
-            let num2 = baseBoard[randomRow2][randomColumnn2]
+    while hasOnes(board: baseBoard) {
+        // Generate random board
+        for _ in 0...100 {
+            multiplier = Int(arc4random_uniform(99) + 1)
             
-            // If both result in three digits or less
-            if num1 * multiplier < 1000 && num2 * multiplier < 1000 {
-                baseBoard[randomRow1][randomColumnn1] = num1 * multiplier
-                baseBoard[randomRow2][randomColumnn2] = num2 * multiplier
+            randomRow1 = Int(arc4random_uniform(6))
+            randomRow2 = Int(arc4random_uniform(6))
+            randomColumnn1 = Int(arc4random_uniform(6))
+            randomColumnn2 = Int(arc4random_uniform(6))
+            
+            // If at both different numbers multiply by some random number
+            if (randomRow1 != randomRow2 || randomColumnn1 != randomColumnn2) {
+                let num1 = baseBoard[randomRow1][randomColumnn1]
+                let num2 = baseBoard[randomRow2][randomColumnn2]
+                
+                // If both result in three digits or less
+                if num1 * multiplier < 1000 && num2 * multiplier < 1000 {
+                    baseBoard[randomRow1][randomColumnn1] = num1 * multiplier
+                    baseBoard[randomRow2][randomColumnn2] = num2 * multiplier
+                }
             }
         }
     }
     return baseBoard
+}
+
+func hasOnes(board: [[Int]]) -> Bool{
+    var valid = false
+    for row in 0...5 {
+        for column in 0...5 {
+            if board[row][column] == 1 {
+                valid = true
+            }
+        }
+    }
+    return valid
 }
 
 
